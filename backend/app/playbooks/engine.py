@@ -1,15 +1,15 @@
 """YAML playbook loading, proposal, and versioning."""
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 import yaml
 from sqlalchemy.orm import Session
 
 from app.models import Playbook, PlaybookVersion
+from app.paths import repo_root
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = repo_root()
 PLAYBOOK_PATH = ROOT / "config" / "playbooks.yaml"
 
 

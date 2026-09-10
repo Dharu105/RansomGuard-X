@@ -1,13 +1,19 @@
 """SQLite database setup for RansomGuard-X."""
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
-ROOT = Path(__file__).resolve().parents[2]
-DB_PATH = ROOT / "data" / "ransomguard.db"
+from app.paths import repo_root
+
+ROOT = repo_root()
+if os.getenv("VERCEL"):
+    DB_PATH = Path("/tmp/ransomguard/ransomguard.db")
+else:
+    DB_PATH = ROOT / "data" / "ransomguard.db"
 DB_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 DATABASE_URL = f"sqlite:///{DB_PATH.as_posix()}"

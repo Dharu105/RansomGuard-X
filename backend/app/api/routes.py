@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, WebSocket, WebSocketDisconnect
 from sqlalchemy.orm import Session
@@ -28,11 +27,12 @@ from app.schemas import (
     RobustnessRequest,
     SimulationStartRequest,
 )
+from app.paths import repo_root
 from app.simulation.engine import engine
 from app.ws import hub
 
 router = APIRouter()
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = repo_root()
 
 
 @router.get("/health")

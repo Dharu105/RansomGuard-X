@@ -1,12 +1,12 @@
 """Isolation Forest anomaly model with deterministic fallback."""
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 from app.detection.features import FEATURE_NAMES, extract_features, feature_vector
+from app.paths import repo_root
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = repo_root()
 MODEL_PATH = ROOT / "ml" / "models" / "isolation_forest.joblib"
 
 FALLBACK_WEIGHTS = {

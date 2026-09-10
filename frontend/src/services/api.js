@@ -1,4 +1,10 @@
-const API = "/api";
+function apiRoot() {
+  const raw = import.meta.env.VITE_API_BASE_URL;
+  if (!raw) return "/api";
+  return `${String(raw).replace(/\/$/, "")}/api`;
+}
+
+const API = apiRoot();
 
 async function request(path, options = {}) {
   const res = await fetch(`${API}${path}`, {
@@ -89,6 +95,8 @@ export const api = {
 };
 
 export function wsUrl() {
+  const fromEnv = import.meta.env.VITE_WS_URL;
+  if (fromEnv) return String(fromEnv);
   const proto = window.location.protocol === "https:" ? "wss" : "ws";
   return `${proto}://${window.location.host}/ws/events`;
 }

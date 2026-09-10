@@ -1,6 +1,7 @@
 """RansomGuard-X FastAPI entrypoint."""
 from __future__ import annotations
 
+import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -11,11 +12,41 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import router
 from app.database import init_db
 from app.detection.anomaly import train_and_persist
+from app.paths import repo_root
 from app.prediction.engine import train_rf
 from app.seed import seed_if_empty
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = repo_root()
 load_dotenv(ROOT / ".env")
+load_dotenv(Path(__file__).resolve().parents[1] / ".env")
+
+
+def _origin_from_host(value: str) -> str:
+    host = value.strip().rstrip("/")
+    if not host:
+        return ""
+    if host.startswith("http://") or host.startswith("https://"):
+        return host
+    return f"https://{host}"
+
+
+def cors_allow_origins() -> list[str]:
+    origins = [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:4173",
+        "http://127.0.0.1:4173",
+    ]
+    for key in ("VERCEL_URL", "VERCEL_BRANCH_URL", "VERCEL_PROJECT_PRODUCTION_URL"):
+        origin = _origin_from_host(os.getenv(key, ""))
+        if origin and origin not in origins:
+            origins.append(origin)
+    extra = os.getenv("FRONTEND_ORIGINS", "")
+    for part in extra.split(","):
+        origin = _origin_from_host(part)
+        if origin and origin not in origins:
+            origins.append(origin)
+    return origins
 
 
 @asynccontextmanager
@@ -42,7 +73,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=cors_allow_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

@@ -6,4 +6,6 @@ dist/
 data/ransomguard.db
 ml/models/*.joblib
 backend/.env
+frontend/.env.local
+frontend/.env.production
 .DS_Store

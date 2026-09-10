@@ -24,9 +24,9 @@ ROOT_ASSETS = None
 
 
 def _load_assets() -> dict:
-    from pathlib import Path
+    from app.paths import repo_root
 
-    path = Path(__file__).resolve().parents[2] / "config" / "assets.yaml"
+    path = repo_root() / "config" / "assets.yaml"
     with path.open("r", encoding="utf-8") as f:
         return yaml.safe_load(f)
 

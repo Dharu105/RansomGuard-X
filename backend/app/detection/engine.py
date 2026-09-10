@@ -1,14 +1,14 @@
 """Behavioral detection, risk scoring, attack stage, and evidence."""
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 import yaml
 
 from app.detection.models import score_events
+from app.paths import repo_root
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = repo_root()
 RULES_PATH = ROOT / "config" / "detection_rules.yaml"
 
 # Incremental weights so the score rises without jumping to 100.

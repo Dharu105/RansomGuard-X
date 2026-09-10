@@ -1,13 +1,14 @@
 """Next-target prediction with optional Random Forest and deterministic fallback."""
 from __future__ import annotations
 
-from pathlib import Path
 from typing import Any
 
 from app.graph.engine import build_graph
 import networkx as nx
 
-ROOT = Path(__file__).resolve().parents[3]
+from app.paths import repo_root
+
+ROOT = repo_root()
 MODEL_PATH = ROOT / "ml" / "models" / "target_rf.joblib"
 
 CANDIDATES = ["FILE-SRV-01", "BACKUP-SRV-01", "FAC-PC-07", "ERP-SRV-01", "LMS-SRV-01"]
