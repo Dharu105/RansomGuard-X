@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+data/ransomguard.db
+ml/models/*.joblib
+backend/.env
+.DS_Store

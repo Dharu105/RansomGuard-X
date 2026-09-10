@@ -1,0 +1,44 @@
+playbooks:
+  - id: PB-RANSOM-LM-001
+    name: ransomware_lateral_movement_response
+    version: 1
+    status: active
+    trigger:
+      risk_score: ">80"
+      attack_stage: lateral_movement
+    conditions:
+      - compromised_account: true
+      - suspicious_network_connection: true
+    actions:
+      - revoke_credentials
+      - isolate_endpoint
+      - protect_file_server
+    approval:
+      risk_level: high
+      human_approval: true
+    verification:
+      - check_attack_activity
+      - verify_containment
+    learning:
+      store_outcome: true
+      propose_update: true
+
+  - id: PB-CRED-001
+    name: credential_compromise_response
+    version: 1
+    status: active
+    trigger:
+      risk_score: ">40"
+      attack_stage: credential_access
+    conditions:
+      - compromised_account: true
+    actions:
+      - revoke_credentials
+    approval:
+      risk_level: medium
+      human_approval: true
+    verification:
+      - verify_credential_revocation
+    learning:
+      store_outcome: true
+      propose_update: true

@@ -1,0 +1,88 @@
+organization: RMK College Cyber Defense Center
+disclaimer: Fictional organization for hackathon demonstration. Not connected to any real RMK network.
+
+assets:
+  - id: LAB-PC-21
+    name: Student Lab Workstation 21
+    type: Endpoint
+    criticality: Medium
+    owner: student.kumar
+    segment: LAB-VLAN
+    os: Windows 11 Education
+  - id: LAB-PC-22
+    name: Student Lab Workstation 22
+    type: Endpoint
+    criticality: Medium
+    owner: student.priya
+    segment: LAB-VLAN
+    os: Windows 11 Education
+  - id: FAC-PC-07
+    name: Faculty Workstation 07
+    type: Endpoint
+    criticality: Medium
+    owner: faculty.meena
+    segment: FACULTY-VLAN
+    os: Windows 11
+  - id: ADMIN-PC-03
+    name: Admin Workstation 03
+    type: Endpoint
+    criticality: High
+    owner: admin.ravi
+    segment: ADMIN-VLAN
+    os: Windows 11
+  - id: FILE-SRV-01
+    name: Campus File Server
+    type: Server
+    criticality: High
+    owner: it.ops
+    segment: SERVER-VLAN
+    os: Windows Server 2022
+  - id: ERP-SRV-01
+    name: Campus ERP Server
+    type: Server
+    criticality: Critical
+    owner: it.ops
+    segment: SERVER-VLAN
+    os: Linux
+  - id: LMS-SRV-01
+    name: Learning Management Server
+    type: Server
+    criticality: Critical
+    owner: it.ops
+    segment: SERVER-VLAN
+    os: Linux
+  - id: BACKUP-SRV-01
+    name: Backup and Recovery Server
+    type: Backup
+    criticality: Critical
+    owner: it.ops
+    segment: BACKUP-VLAN
+    os: Linux
+
+users:
+  - id: student.kumar
+    role: Student
+    privilege: Standard
+  - id: student.priya
+    role: Student
+    privilege: Standard
+  - id: faculty.meena
+    role: Faculty
+    privilege: Elevated
+  - id: admin.ravi
+    role: Administrator
+    privilege: Admin
+  - id: svc.backup
+    role: Service Account
+    privilege: Service
+
+credentials:
+  - id: CRED-STU-21
+    user_id: student.kumar
+    type: Domain Password
+  - id: CRED-FAC-07
+    user_id: faculty.meena
+    type: Domain Password
+  - id: CRED-SVC-BACKUP
+    user_id: svc.backup
+    type: Service Principal

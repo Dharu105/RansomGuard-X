@@ -1,0 +1,128 @@
+# Sigma-inspired detection rules for RansomGuard-X
+# Safe synthetic telemetry only. Not production detections.
+
+rules:
+  - id: RGX-DET-001
+    title: Suspicious Process Creation
+    status: experimental
+    mitre: T1059
+    logsource: process_creation
+    detection:
+      selection:
+        event_type: suspicious_process
+      condition: selection
+    weight: 10
+    severity: medium
+
+  - id: RGX-DET-002
+    title: Mass File Modification
+    status: experimental
+    mitre: T1486
+    logsource: file_events
+    detection:
+      selection:
+        event_type: mass_file_modification
+      condition: selection
+    weight: 25
+    severity: high
+
+  - id: RGX-DET-003
+    title: Rapid File Rename
+    status: experimental
+    mitre: T1486
+    logsource: file_events
+    detection:
+      selection:
+        event_type: rapid_file_rename
+      condition: selection
+    weight: 15
+    severity: high
+
+  - id: RGX-DET-004
+    title: Credential Access Attempt
+    status: experimental
+    mitre: T1078
+    logsource: credential_access
+    detection:
+      selection:
+        event_type: credential_access
+      condition: selection
+    weight: 15
+    severity: high
+
+  - id: RGX-DET-005
+    title: Privilege Escalation
+    status: experimental
+    mitre: T1068
+    logsource: privilege
+    detection:
+      selection:
+        event_type: privilege_escalation
+      condition: selection
+    weight: 15
+    severity: high
+
+  - id: RGX-DET-006
+    title: Lateral Movement
+    status: experimental
+    mitre: T1021
+    logsource: network
+    detection:
+      selection:
+        event_type: lateral_movement
+      condition: selection
+    weight: 15
+    severity: critical
+
+  - id: RGX-DET-007
+    title: File Server Access from Compromised Host
+    status: experimental
+    mitre: T1021
+    logsource: network
+    detection:
+      selection:
+        event_type: file_server_access
+      condition: selection
+    weight: 10
+    severity: critical
+
+  - id: RGX-DET-008
+    title: Backup Access Attempt
+    status: experimental
+    mitre: T1486
+    logsource: backup
+    detection:
+      selection:
+        event_type: backup_access_attempt
+      condition: selection
+    weight: 10
+    severity: critical
+
+  - id: RGX-DET-009
+    title: Unusual Network Connection
+    status: experimental
+    mitre: T1071
+    logsource: network
+    detection:
+      selection:
+        event_type: suspicious_network
+      condition: selection
+    weight: 10
+    severity: medium
+
+weights:
+  mass_file_modification: 25
+  rapid_file_rename: 15
+  credential_access: 15
+  privilege_escalation: 15
+  suspicious_network: 10
+  lateral_movement: 15
+  backup_access_attempt: 10
+  suspicious_process: 10
+  file_server_access: 10
+
+risk_bands:
+  LOW: [0, 30]
+  MEDIUM: [31, 60]
+  HIGH: [61, 80]
+  CRITICAL: [81, 100]

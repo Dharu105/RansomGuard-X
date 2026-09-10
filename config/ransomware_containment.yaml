@@ -1,0 +1,22 @@
+playbook:
+  id: RANSOMWARE_CONTAINMENT
+  version: 1
+  trigger: ransomware_likely
+  status: ACTIVE
+  note: YAML is documentation only and is never executed as code.
+
+steps:
+  - detect_behavior
+  - validate_evidence
+  - identify_attack_path
+  - predict_next_target
+  - compare_defenses
+  - request_human_approval
+  - simulate_containment
+  - verify_containment
+  - test_adaptation
+  - record_outcome
+
+recommended_actions:
+  - SIMULATED_CONTAINMENT
+  - HUMAN_APPROVAL

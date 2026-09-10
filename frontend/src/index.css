@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  background: #030712;
+  color: #e8f0f8;
+  font-family: Inter, Geist, "Segoe UI", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #1d2a3a;
+  border-radius: 8px;
+}
+
+:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+.cyber-grid {
+  background-color: #030712;
+  background-image:
+    linear-gradient(rgba(29, 42, 58, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 42, 58, 0.22) 1px, transparent 1px),
+    radial-gradient(ellipse at 50% -10%, rgba(34, 211, 238, 0.07), transparent 46%),
+    radial-gradient(ellipse at 100% 80%, rgba(139, 92, 246, 0.05), transparent 38%);
+  background-size: 56px 56px, 56px 56px, 100% 100%, 100% 100%;
+}
+
+.war-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #1d2a3a;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(11, 18, 32, 0.94), rgba(5, 9, 20, 0.96));
+  box-shadow: inset 0 1px 0 rgba(232, 240, 248, 0.04), 0 18px 50px rgba(0, 0, 0, 0.4);
+}
+
+.war-frame::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(34, 211, 238, 0.03) 50%, transparent 100%);
+  background-size: 100% 220%;
+  animation: scan 9s linear infinite;
+  opacity: 0.45;
+}
+
+.panel {
+  @apply rounded-xl border border-soc-border bg-soc-panel transition-colors duration-200;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+}
+
+.map-stage {
+  position: relative;
+  min-width: 0;
+  border: 1px solid rgba(34, 211, 238, 0.16);
+  border-radius: 14px;
+  background: radial-gradient(circle at 50% 20%, rgba(34, 211, 238, 0.06), transparent 42%), #070b14;
+}
+
+.intel-radar {
+  position: relative;
+  overflow: hidden;
+}
+.intel-radar .sweep {
+  pointer-events: none;
+  position: absolute;
+  right: -24px;
+  top: -24px;
+  height: 96px;
+  width: 96px;
+  border-radius: 999px;
+  background: conic-gradient(from 0deg, transparent 70%, rgba(59, 130, 246, 0.28), transparent 100%);
+  animation: spin 6s linear infinite;
+}
+
+.btn {
+  @apply inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition duration-200 disabled:opacity-50;
+}
+
+.btn-primary {
+  @apply bg-cyan-500/90 text-[#041018] hover:bg-cyan-500;
+}
+
+.btn-danger {
+  @apply bg-soc-crit text-white hover:bg-[#dc2626];
+}
+
+.btn-ghost {
+  @apply border border-soc-border bg-transparent text-soc-text hover:bg-soc-raised;
+}
+
+.btn-good {
+  @apply bg-soc-good text-[#041018] hover:bg-[#16a34a];
+}
+
+.ops-tab {
+  @apply rounded-md px-2.5 py-1 text-[11px] uppercase tracking-wide text-soc-muted transition duration-200;
+}
+.ops-tab-on {
+  @apply bg-cyan-500/10 text-cyan-300;
+  box-shadow: inset 0 -2px 0 #22d3ee;
+}
+
+.rgx-node-current .rgx-asset {
+  animation: node-ring 2.4s ease-in-out infinite;
+}
+.rgx-node-predicted .rgx-asset {
+  border-style: dashed !important;
+}
+.rgx-node-risk .rgx-asset {
+  animation: risk-pulse 2.2s ease-in-out infinite;
+}
+
+.telemetry-row {
+  position: relative;
+}
+.telemetry-row.is-live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.16), transparent);
+  animation: sweep-x 0.7s ease-out;
+}
+
+@keyframes scan {
+  0% {
+    background-position: 0 -40%;
+  }
+  100% {
+    background-position: 0 140%;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sweep-x {
+  from {
+    transform: translateX(-40%);
+    opacity: 0.8;
+  }
+  to {
+    transform: translateX(40%);
+    opacity: 0;
+  }
+}
+@keyframes node-ring {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.5), 0 0 16px rgba(34, 211, 238, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.12), 0 0 22px rgba(34, 211, 238, 0.18);
+  }
+}
+@keyframes risk-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
+  }
+}
+
+.react-flow__node {
+  font-family: Inter, sans-serif;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .war-frame::before,
+  .intel-radar .sweep,
+  .rgx-node-current .rgx-asset,
+  .rgx-node-risk .rgx-asset,
+  .telemetry-row.is-live::after,
+  .animate-pulse-dot,
+  .animate-event-in {
+    animation: none !important;
+  }
+}
